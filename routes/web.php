@@ -19,8 +19,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// User route
+Route::middleware(['auth', 'user-role:user'])->group(function (){
+    Route::get('/home', [\App\Http\Controllers\HomeController::class, 'userHome'])->name('home');
+});
 
-Auth::routes();
+// Editor route
+Route::middleware(['auth', 'user-role:editor'])->group(function (){
+    Route::get('/editor/home', [\App\Http\Controllers\HomeController::class, 'editorHome'])->name('home.editor');
+});
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Admin route
+Route::middleware(['auth', 'user-role:admin'])->group(function (){
+    Route::get('/admin/home', [\App\Http\Controllers\HomeController::class, 'adminHome'])->name('home.admin');
+});
