@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+
     }
 
     /**
@@ -21,8 +21,18 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function userHome()
     {
-        return view('home');
+        return view('home', ["msg" => "I am user role"]);
+    }
+
+    public function editorHome()
+    {
+        return view('home', ["msg" => "I am editor role"]);
+    }
+
+    public function adminHome()
+    {
+        return view('home', ["msg" => "I am admin role"]);
     }
 }
